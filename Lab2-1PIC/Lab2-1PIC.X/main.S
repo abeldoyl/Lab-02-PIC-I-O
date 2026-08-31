@@ -1,6 +1,6 @@
     ; Abel Doyle
     ; RCET3373
-    ; First Program
+    ; Lab2-1PIC
     ; git url if you have one
     
 ; PIC16F883 Configuration Bit Settings
