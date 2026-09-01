@@ -1,7 +1,7 @@
     ; Abel Doyle
     ; RCET3373
     ; Lab2-1PIC
-    ; git url if you have one
+    ; https://github.com/abeldoyl/Lab-02-PIC-I-O/tree/main/Lab2-1PIC/Lab2-1PIC.X
     
 ; PIC16F883 Configuration Bit Settings
 
@@ -29,8 +29,6 @@
 ; Reset Vector at 0000h. Execution starts here after reset.
 PSECT resetVect,class=CODE,delta=2
 ResetVector: 
-    NOP
-    NOP
     goto Setup
 
 
@@ -42,7 +40,7 @@ Setup:
     goto Main
     
     
-    Main:
-	; main code goes here
-	goto Main
-    End
+Main:
+    ; main code goes here
+    goto Main
+End
