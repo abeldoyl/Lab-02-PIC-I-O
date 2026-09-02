@@ -1,7 +1,7 @@
     ; Abel Doyle
     ; RCET3373
     ; Lab2-2PIC
-    ; GIT URL
+    ; https://github.com/abeldoyl/Lab-02-PIC-I-O/tree/main/Lab2-2PIC/Lab2-2PIC.X
     
 ; PIC16F883 Configuration Bit Settings
 
@@ -57,14 +57,15 @@ Setup:
     BSF 0x03,5
     CLRF 0x89 ; Setting ANSELH I/O to Digital
     
+    BCF 0x03,6
+    BCF 0x03,5
     goto Main
     
     
 Main:
     ; main code goes here
-    BCF 0x03,6
-    BCF 0x03,5
-    INCF 0x09,0 ; Increments the output of PORTB
+    INCF 0x06,1 ; Increments the output of PORTB
     
     goto Main
 End
+    
