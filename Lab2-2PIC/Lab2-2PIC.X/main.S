@@ -37,10 +37,34 @@ PSECT code,class=CODE,delta=2
  
 Setup:
     ; add device setup here
+    ; Bank 0 Setup for PORTB
+    BCF 0x03,6
+    BCF 0x03,5
+    CLRF 0x06 ; Setting PORTB low on Reset
+    
+    ; Bank 1 Setup for PORT B
+    BCF 0x03,6
+    BSF 0x03,5
+    CLRF 0x86 ; Setting TRISB low on Reset so that it's an output
+    
+    ; Bank 2 Setup for PORTB
+    BSF 0x03,6
+    BCF 0x03,5
+    BSF 0x09,1 ; Setting Bit 1 high for CM2CON1
+    
+    ; Bank 3 Setup for PORTB
+    BSF 0x03,6
+    BSF 0x03,5
+    CLRF 0x89 ; Setting ANSELH I/O to Digital
+    
     goto Main
     
     
 Main:
     ; main code goes here
+    BCF 0x03,6
+    BCF 0x03,5
+    INCF 0x09,0 ; Increments the output of PORTB
+    
     goto Main
 End
