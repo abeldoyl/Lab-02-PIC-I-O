@@ -51,17 +51,17 @@ OBJECTDIR=build/${CND_CONF}/${IMAGE_TYPE}
 DISTDIR=dist/${CND_CONF}/${IMAGE_TYPE}
 
 # Source Files Quoted if spaced
-SOURCEFILES_QUOTED_IF_SPACED=../../Lab2-1PIC/Lab2-1PIC.X/main.S
+SOURCEFILES_QUOTED_IF_SPACED=../../Lab2-1PIC/Lab2-1PIC.X/main.S main.S
 
 # Object Files Quoted if spaced
-OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/105768195/main.o
-POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/105768195/main.o.d
+OBJECTFILES_QUOTED_IF_SPACED=${OBJECTDIR}/_ext/105768195/main.o ${OBJECTDIR}/main.o
+POSSIBLE_DEPFILES=${OBJECTDIR}/_ext/105768195/main.o.d ${OBJECTDIR}/main.o.d
 
 # Object Files
-OBJECTFILES=${OBJECTDIR}/_ext/105768195/main.o
+OBJECTFILES=${OBJECTDIR}/_ext/105768195/main.o ${OBJECTDIR}/main.o
 
 # Source Files
-SOURCEFILES=../../Lab2-1PIC/Lab2-1PIC.X/main.S
+SOURCEFILES=../../Lab2-1PIC/Lab2-1PIC.X/main.S main.S
 
 
 
@@ -97,6 +97,14 @@ ${OBJECTDIR}/_ext/105768195/main.o: ../../Lab2-1PIC/Lab2-1PIC.X/main.S  nbprojec
 	../../Lab2-1PIC/Lab2-1PIC.X/main.S \
 	 -D__DEBUG=1   -mdfp="${DFP_DIR}/xc8"  -msummary=+mem,-psect,-class,-hex,-file,-sha1,-sha256,-xml,-xmlfull -fmax-errors=20 -mwarn=0 -xassembler-with-cpp -Wl,-presetVect=0000h,-pcode=0008h
 	
+${OBJECTDIR}/main.o: main.S  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main.o 
+	${MP_AS} -mcpu=PIC16F883 -c \
+	-o ${OBJECTDIR}/main.o \
+	main.S \
+	 -D__DEBUG=1   -mdfp="${DFP_DIR}/xc8"  -msummary=+mem,-psect,-class,-hex,-file,-sha1,-sha256,-xml,-xmlfull -fmax-errors=20 -mwarn=0 -xassembler-with-cpp -Wl,-presetVect=0000h,-pcode=0008h
+	
 else
 ${OBJECTDIR}/_ext/105768195/main.o: ../../Lab2-1PIC/Lab2-1PIC.X/main.S  nbproject/Makefile-${CND_CONF}.mk 
 	@${MKDIR} "${OBJECTDIR}/_ext/105768195" 
@@ -104,6 +112,14 @@ ${OBJECTDIR}/_ext/105768195/main.o: ../../Lab2-1PIC/Lab2-1PIC.X/main.S  nbprojec
 	${MP_AS} -mcpu=PIC16F883 -c \
 	-o ${OBJECTDIR}/_ext/105768195/main.o \
 	../../Lab2-1PIC/Lab2-1PIC.X/main.S \
+	  -mdfp="${DFP_DIR}/xc8"  -msummary=+mem,-psect,-class,-hex,-file,-sha1,-sha256,-xml,-xmlfull -fmax-errors=20 -mwarn=0 -xassembler-with-cpp -Wl,-presetVect=0000h,-pcode=0008h
+	
+${OBJECTDIR}/main.o: main.S  nbproject/Makefile-${CND_CONF}.mk 
+	@${MKDIR} "${OBJECTDIR}" 
+	@${RM} ${OBJECTDIR}/main.o 
+	${MP_AS} -mcpu=PIC16F883 -c \
+	-o ${OBJECTDIR}/main.o \
+	main.S \
 	  -mdfp="${DFP_DIR}/xc8"  -msummary=+mem,-psect,-class,-hex,-file,-sha1,-sha256,-xml,-xmlfull -fmax-errors=20 -mwarn=0 -xassembler-with-cpp -Wl,-presetVect=0000h,-pcode=0008h
 	
 endif

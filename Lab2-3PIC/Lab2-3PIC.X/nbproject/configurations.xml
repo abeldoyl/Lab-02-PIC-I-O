@@ -18,10 +18,12 @@
                    displayName="Source Files"
                    projectFiles="true">
       <itemPath>../../Lab2-1PIC/Lab2-1PIC.X/main.S</itemPath>
+      <itemPath>main.S</itemPath>
     </logicalFolder>
   </logicalFolder>
   <sourceRootList>
     <Elem>../../Lab2-1PIC/Lab2-1PIC.X</Elem>
+    <Elem>.</Elem>
   </sourceRootList>
   <projectmakefile>Makefile</projectmakefile>
   <confs>
