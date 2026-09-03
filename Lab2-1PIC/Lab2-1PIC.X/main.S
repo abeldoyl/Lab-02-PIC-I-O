@@ -1,7 +1,7 @@
     ; Abel Doyle
     ; RCET3373
-    ; Lab2-3PIC
-    ; https://github.com/abeldoyl/Lab-02-PIC-I-O/tree/main/Lab2-3PIC/Lab2-3PIC.X
+    ; Lab2-1PIC
+    ; https://github.com/abeldoyl/Lab-02-PIC-I-O/tree/main/Lab2-1PIC/Lab2-1PIC.X
     
 ; PIC16F883 Configuration Bit Settings
 
@@ -44,3 +44,4 @@ Main:
     ; main code goes here
     goto Main
 End
+    
