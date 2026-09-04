@@ -37,11 +37,98 @@ PSECT code,class=CODE,delta=2
  
 Setup:
     ; add device setup here
-    goto Main
+    ; Bank 0
+    BANKSEL PORTB	;Select PORTB
+    CLRF PORTB		;Clearing all previous data on PORTB
+    BANKSEL PORTC	;Select PORTC
+    CLRF PORTC		;Clearing all previous data on PORTC
     
+    ; Bank 1
+    BANKSEL TRISB	;Select TRISB
+    MOVLW 0xFE		;start with Row1 output, everything else input
+    MOVWF TRISB		;"
+    BANKSEL TRISC	;Select TRISC
+    CLRF TRISC		;makes PORTC an output
+    BANKSEL WPUB	;Select WPUB
+    MOVLW 0xF0		;Weak pull-ups on RB4-RB7 (the four column inputs)
+    MOVWF WPUB		;"
+    BANKSEL OPTION_REG	;Select OPTION_REG
+    BCF OPTION_REG,7	;RBPU = 0 -> enable PORTB weak pull-ups globally
+    
+    ; Bank 3
+    BANKSEL ANSELH     ;Select ANSELH
+    CLRF ANSELH        ;PORTB pins used here are set to be digital, not analog
+    
+    goto Main
     
 Main:
     ; main code goes here
+    CLRF 0x20		;Clear register low key is set low
+    CLRF 0x21		;Clear register high key is set low
+	
+	;Scan for data on Row 1 (Pin8 & RB0) 
+	BCF 0x03,6	;Set Bank 1
+	BSF 0x03,5	;"
+	MOVLW 0xFE	;Set the RB0 output is low, RB1-RB7 input
+	MOVWF 0x86	;Send W to PortB
+        BCF 0x03,6	;Set Bank 0
+        BCF 0x03,5	;"
+	BTFSS 0x06,4	;Check Pin 4 for 1
+        BSF 0x20,1
+        BTFSS 0x06,5    ;Check Pin 3 for 2
+        BSF 0x20,2
+        BTFSS 0x06,6    ;Check Pin 2 for 3
+        BSF 0x20,3 
+        BTFSS 0x06,7    ;Check Pin 1 for A
+        BSF 0x21,2
+	
+	;Scan for data on Row 2 (Pin7 & RB1)
+	BCF 0x03,6      ;Set Bank 1
+        BSF 0x03,5      ;"
+        MOVLW 0xFD      ;Set the RB1 output-low, rest input
+        MOVWF 0x86      ;Send W to PortB
+        BCF 0x03,6      ;Set Bank 0
+        BCF 0x03,5      ;"
+        BTFSS 0x06,4    ;Check Pin 4 for 4
+        BSF 0x20,4
+        BTFSS 0x06,5    ;Check Pin 3 for 5
+        BSF 0x20,5
+        BTFSS 0x06,6    ;Check Pin 2 for 6
+        BSF 0x20,6
+        BTFSS 0x06,7    ;Check Pin 1 for B
+        BSF 0x21,3
+	
+	;Scan for data on Row 3 (Pin6 & RB2)
+	BCF 0x03,6      ;Set Bank 1
+        BSF 0x03,5      ;"
+        MOVLW 0xFB      ;Set the RB2 output-low, rest input
+        MOVWF 0x86      ;Send W to PortB
+        BCF 0x03,6      ;Set Bank 0
+        BCF 0x03,5      ;"
+        BTFSS 0x06,4    ;Check Pin 4 for 7
+        BSF 0x20,7
+        BTFSS 0x06,5    ;Check Pin 3 for 8
+        BSF 0x21,0
+        BTFSS 0x06,6    ;Check Pin 2 for 9
+        BSF 0x21,1
+        BTFSS 0x06,7    ;Check Pin 1 for C
+        BSF 0x21,4
+	
+	;Scan for data on Row 4 (Pin6 & RB3)
+	 BCF 0x03,6     ;Set Bank 1
+        BSF 0x03,5      ;"
+        MOVLW 0xF7      ;Set the RB3 output-low, rest input
+        MOVWF 0x86      ;Send W to PortB
+        BCF 0x03,6      ;Set Bank 0
+        BCF 0x03,5      ;"
+        BTFSS 0x06,4    ;Check Pin 4 for *
+        BSF 0x21,6
+        BTFSS 0x06,5    ;Check Pin 3 for 0
+        BSF 0x20,0
+        BTFSS 0x06,6    ;Check Pin 2 for #
+        BSF 0x21,7
+        BTFSS 0x06,7    ;Check Pin 1 for D
+        BSF 0x21,5
     goto Main
 End
     
