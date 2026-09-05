@@ -115,7 +115,7 @@ Main:
         BSF 0x21,4
 	
 	;Scan for data on Row 4 (Pin6 & RB3)
-	 BCF 0x03,6     ;Set Bank 1
+	BCF 0x03,6      ;Set Bank 1
         BSF 0x03,5      ;"
         MOVLW 0xF7      ;Set the RB3 output-low, rest input
         MOVWF 0x86      ;Send W to PortB
@@ -129,6 +129,175 @@ Main:
         BSF 0x21,7
         BTFSS 0x06,7    ;Check Pin 1 for D
         BSF 0x21,5
-    goto Main
+	
+    BANKSEL PORTB
+    goto PriorityEncode
+    
+    PriorityEncode:
+    
+    BTFSS   0x21,7      ;Test for if # is pressed
+    goto    TestStar
+    goto    DisplayPound
+    
+    TestStar:
+    BTFSS   0x21,6      ;Test for if * is pressed
+    goto    TestD
+    goto    DisplayStar
+    
+    TestD:
+    BTFSS   0x21,5      ;Test for if D is pressed
+    goto    TestC
+    goto    DisplayD
+    
+    TestC:
+    BTFSS   0x21,4      ;Test for if C is pressed
+    goto    TestB
+    goto    DisplayC
+    
+    TestB:
+    BTFSS   0x21,3      ;Test for if B is pressed
+    goto    TestA
+    goto    DisplayB
+    
+    TestA:
+    BTFSS   0x21,2      ;Test for if A is pressed
+    goto    Test9
+    goto    DisplayA
+    
+    Test9:
+    BTFSS   0x21,1      ;Test for if 9 is pressed
+    goto    Test8
+    goto    Display9
+    
+    Test8:
+    BTFSS   0x21,0      ;Test for if 8 is pressed
+    goto    Test7
+    goto    Display8
+    
+    Test7:
+    BTFSS   0x20,7      ;Test for if 7 is pressed
+    goto    Test6
+    goto    Display7
+    
+    Test6:
+    BTFSS   0x20,6      ;Test for if 6 is pressed
+    goto    Test5
+    goto    Display6
+    
+    Test5:
+    BTFSS   0x20,5      ;Test for if 5 is pressed
+    goto    Test4
+    goto    Display5
+    
+    Test4:
+    BTFSS   0x20,4      ;Test for if 4 is pressed
+    goto    Test3
+    goto    Display4
+    
+    Test3:
+    BTFSS   0x20,3      ;Test for if 3 is pressed
+    goto    Test2
+    goto    Display3
+    
+    Test2:
+    BTFSS   0x20,2      ;Test for if 2 is pressed
+    goto    Test1
+    goto    Display2
+    
+    Test1:
+    BTFSS   0x20,1      ;Test for if 1 is pressed 
+    goto    Test0
+    goto    Display1
+    
+    Test0:
+    BTFSS   0x20,0      ;Test for if 0 is pressed
+    goto    DisplayDefault
+    goto    Display0
+
+    
+    Display9:
+    MOVLW 0x39      ;Select the character set for display 9
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    Display8:
+    MOVLW 0x38      ;Select the character set for display 8
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    Display7:
+    MOVLW 0x37      ;Select the character set for display 7
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    Display6:
+    MOVLW 0x36      ;Select the character set for display 6
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    Display5:
+    MOVLW 0x35      ;Select the character set for display 5
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    Display4:
+    MOVLW 0x34      ;Select the character set for display 4
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    Display3:
+    MOVLW 0x33      ;Select the character set for display 3
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    Display2:
+    MOVLW 0x32      ;Select the character set for display 2
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    Display1:
+    MOVLW 0x31      ;Select the character set for display 1
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    Display0:
+    MOVLW 0x30      ;Select the character set for display 0
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    DisplayA:
+    MOVLW 0x41      ;Select the character set for display A
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    DisplayB:
+    MOVLW 0x42      ;Select the character set for display B
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    DisplayC:
+    MOVLW 0x43      ;Select the character set for display C
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    DisplayD:
+    MOVLW 0x44      ;Select the character set for display D
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    DisplayStar:
+    MOVLW 0x2A      ;Select the character set for display *
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    DisplayPound:
+    MOVLW 0x23      ;Select the character set for display #
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
+
+    DisplayDefault:
+    MOVLW 0x24      ;Select the character set for display $
+    MOVWF 0x07      ;Send W to PortC
+    GOTO Main
 End
     
